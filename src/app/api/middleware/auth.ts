@@ -1,9 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { errorResponse, ERROR_CODES } from '../utils/response.js';
 
-const _cipherApiKeyRaw = process.env.CIPHER_API_KEY;
-console.log(`[Auth] CIPHER_API_KEY configured: ${!!_cipherApiKeyRaw}, length: ${_cipherApiKeyRaw?.length ?? 0}`);
-console.log(`[Auth] CIPHER_ env vars present: ${Object.keys(process.env).filter(k => k.startsWith('CIPHER')).join(', ') || '(none)'}`);
 
 export const apiKeyAuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
 	const configuredApiKey = process.env.CIPHER_API_KEY?.trim();
