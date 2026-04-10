@@ -153,7 +153,7 @@ export class ApiServer {
 			const agentCardData = initializeAgentCardResource(agentCardInput);
 
 			// Check MCP_SERVER_MODE environment variable to determine server type
-			const mcpServerMode = process.env.MCP_SERVER_MODE || 'default';
+			const mcpServerMode = process.env.MCP_SERVER_MODE || 'aggregator';
 			logger.info(`[API Server] MCP server mode: ${mcpServerMode}`);
 
 			// Load aggregator configuration if needed

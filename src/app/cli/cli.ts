@@ -272,8 +272,8 @@ export async function startMcpMode(agent: MemAgent, opts?: any): Promise<void> {
 	}
 
 	// Check MCP_SERVER_MODE environment variable to determine server type
-	// Default to 'default' if not specified (backward compatibility)
-	const mcpServerMode = process.env.MCP_SERVER_MODE || 'default';
+	// Default to 'aggregator' to expose all tools to MCP clients
+	const mcpServerMode = process.env.MCP_SERVER_MODE || 'aggregator';
 
 	try {
 		switch (mcpServerMode) {
