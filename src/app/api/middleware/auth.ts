@@ -13,7 +13,7 @@ export const apiKeyAuthMiddleware = (req: Request, res: Response, next: NextFunc
 		return next();
 	}
 
-	const requestApiKey = req.headers['x-api-key'] || req.query.apiKey;
+	const requestApiKey = req.headers['x-api-key'] || req.query.apiKey || req.query.apikey;
 
 	if (!requestApiKey || requestApiKey !== configuredApiKey) {
 		return errorResponse(res, ERROR_CODES.UNAUTHORIZED, 'Invalid or missing API key', 401);

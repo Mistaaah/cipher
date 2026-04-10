@@ -229,7 +229,15 @@ export class ApiServer {
 
 			try {
 				// Build the POST endpoint path including context path from proxy
-				const postEndpoint = this.buildFullPath(req, '/mcp');
+				let postEndpoint = this.buildFullPath(req, '/mcp');
+
+				// Preserve any existing query parameters (like apiKey) for the POST endpoint
+				// This ensures that authentication is maintained for subsequent requests
+				const searchParams = new URL(req.originalUrl, `http://${req.headers.host}`).searchParams;
+				if (searchParams.toString()) {
+					const separator = postEndpoint.includes('?') ? '&' : '?';
+					postEndpoint += `${separator}${searchParams.toString()}`;
+				}
 
 				logger.info(`[API Server] Creating SSE transport with POST endpoint: ${postEndpoint}`);
 
@@ -606,7 +614,13 @@ export class ApiServer {
 					callback(new Error('Not allowed by CORS'));
 				},
 				methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-				allowedHeaders: ['Content-Type', 'Authorization', 'X-Request-ID', 'X-Session-ID'],
+				allowedHeaders: [
+					'Content-Type',
+					'Authorization',
+					'X-Request-ID',
+					'X-Session-ID',
+					'X-API-Key',
+				],
 				credentials: true,
 			})
 		);
