@@ -152,8 +152,10 @@ export class PostgresBackend implements DatabaseBackend {
 				},
 			});
 		} catch (error) {
+			const errMsg = error instanceof Error ? error.message : String(error);
+			console.error(`[PostgreSQL] Connection failed: ${errMsg}`);
 			this.logger.error('Failed to connect to PostgreSQL database', {
-				error: error instanceof Error ? error.message : String(error),
+				error: errMsg,
 			});
 			throw new StorageConnectionError(
 				'Failed to connect to PostgreSQL database',
