@@ -546,8 +546,8 @@ export class ApiServer {
 	}
 
 	private setupMiddleware(): void {
-		// Enable trust proxy for reverse proxy support
-		this.app.set('trust proxy', true);
+		// Trust 1 proxy hop (Railway's load balancer)
+		this.app.set('trust proxy', 1);
 
 		// Parse X-Forwarded-Prefix for context path support
 		this.app.use((req: Request, res: Response, next: NextFunction) => {
