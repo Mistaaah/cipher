@@ -1,15 +1,21 @@
 # List of MCP servers to use
-# mcpServers: 
-#   filesystem:
-#     type: stdio
-#     command: npx
-#     args:
-#       - -y
-#       - '@modelcontextprotocol/server-filesystem'
-#       - .
+mcpServers:
+  # Filesystem server for local file access
+  filesystem:
+    type: stdio
+    command: npx
+    args:
+      - -y
+      - '@modelcontextprotocol/server-filesystem'
+      - /workspace
 
-# If not specified, please set it like this:
-mcpServers: {}
+  # Web search server for researching information
+  web:
+    type: stdio
+    command: npx
+    args:
+      - -y
+      - '@modelcontextprotocol/server-web'
 
 # Choose ONLY ONE of the following LLM providers
 llm:
